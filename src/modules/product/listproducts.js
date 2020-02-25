@@ -1,5 +1,5 @@
 import Product from '../../models/Product';
-import {getSingleUrl, getToplevelLinks, stringifyQuery} from './util';
+import {getSingleUrl, getToplevelLinks} from './util';
 
 const PAGE_SIZE = 100;
 
@@ -19,6 +19,24 @@ export default async (ctx) => {
       dataLinks: {
         self: getSingleUrl(ctx),
       },
+      attributes: ['productId', 'name', 'type'],
+    })
+      .serialize(docs);
+  } catch (e) {
+    ctx.throw(404, e);
+  }
+};
+/**
+ * The handler for listing red wine products
+ * @param ctx
+ * @returns {Promise.<void>}
+ */
+export const listRedwines = async (ctx) => {
+  const {query} = ctx;
+  console.log(query)
+  try {
+    const docs = await Product.getRedwines(query.search);
+    ctx.body = ctx.serializer('products', {
       attributes: ['productId', 'name', 'type'],
     })
       .serialize(docs);

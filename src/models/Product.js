@@ -149,6 +149,17 @@ ProductSchema.statics = {
       new Error('No such product exists!', 404);
     }
   },
+  /**
+   * Get red wine products
+   * @returns {Promise.<*>}
+   */
+  async getRedwines(searchQuery) {
+    try {
+      return await this.find({type: /punaviini/, name: new RegExp(searchQuery, 'i')}).exec();
+    } catch (e) {
+      new Error('No such product exists!', 404);
+    }
+  },
 };
 
 /**
