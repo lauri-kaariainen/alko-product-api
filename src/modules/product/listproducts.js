@@ -33,9 +33,26 @@ export default async (ctx) => {
  */
 export const listRedwines = async (ctx) => {
   const {query} = ctx;
-  console.log(query)
   try {
     const docs = await Product.getRedwines(query.search);
+    ctx.body = ctx.serializer('products', {
+      attributes: ['productId', 'name', 'type'],
+    })
+      .serialize(docs);
+  } catch (e) {
+    ctx.throw(404, e);
+  }
+};
+
+/**
+ * The handler for listing beer products
+ * @param ctx
+ * @returns {Promise.<void>}
+ */
+export const listBeers = async (ctx) => {
+  const {query} = ctx;
+  try {
+    const docs = await Product.getBeers(query.search);
     ctx.body = ctx.serializer('products', {
       attributes: ['productId', 'name', 'type'],
     })

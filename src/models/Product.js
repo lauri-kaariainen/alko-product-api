@@ -150,7 +150,7 @@ ProductSchema.statics = {
     }
   },
   /**
-   * Get red wine products
+   * Get red wine products with query if wanted
    * @returns {Promise.<*>}
    */
   async getRedwines(searchQuery) {
@@ -160,7 +160,19 @@ ProductSchema.statics = {
       new Error('No such product exists!', 404);
     }
   },
+  /**
+   * Get beer products
+   * @returns {Promise.<*>}
+   */
+  async getBeers(searchQuery) {
+    try {
+      return await this.find({type: /oluet/, name: new RegExp(searchQuery, 'i')}).exec();
+    } catch (e) {
+      new Error('No such product exists!', 404);
+    }
+  },
 };
+
 
 /**
  * Plugins

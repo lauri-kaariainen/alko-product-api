@@ -1,5 +1,5 @@
 import router from './config/router';
-import {listProducts, listRedwines} from './modules/product/listproducts';
+import {listProducts, listRedwines, listBeers} from './modules/product/listproducts';
 import singleProduct from './modules/product/singleProduct';
 import {name, version} from '../package.json'
 
@@ -22,6 +22,10 @@ export default {
   'GET /products/redwines': {
     handler: listRedwines,
   },
+  'GET /products/beers': {
+    handler: listBeers,
+  },
+
   'GET /products/:productId': {
     handler: singleProduct,
   },
