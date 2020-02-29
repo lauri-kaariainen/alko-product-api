@@ -171,6 +171,17 @@ ProductSchema.statics = {
       new Error('No such product exists!', 404);
     }
   },
+  /**
+  * Get whiskey products
+  * @returns {Promise.<*>}
+  */
+  async getWhiskeys(searchQuery) {
+    try {
+      return await this.find({type: /viskit/, name: new RegExp(searchQuery, 'i')}).exec();
+    } catch (e) {
+      new Error('No such product exists!', 404);
+    }
+  },
 };
 
 

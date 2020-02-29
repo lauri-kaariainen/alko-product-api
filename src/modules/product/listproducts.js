@@ -61,3 +61,21 @@ export const listBeers = async (ctx) => {
     ctx.throw(404, e);
   }
 };
+
+/**
+ * The handler for listing whiskey products
+ * @param ctx
+ * @returns {Promise.<void>}
+ */
+export const listWhiskeys = async (ctx) => {
+  const {query} = ctx;
+  try {
+    const docs = await Product.getWhiskeys(query.search);
+    ctx.body = ctx.serializer('products', {
+      attributes: ['productId', 'name', 'type'],
+    })
+      .serialize(docs);
+  } catch (e) {
+    ctx.throw(404, e);
+  }
+};
